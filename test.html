@@ -1,25 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 
 <html>
     <head>
         <title>Audio test</title>
-        <script type="text/javascript"></script>
+        <script type="text/javascript" src="../js-stopwatch/stopwatch.js"></script>
     </head>
 
     <body>
-        <button onclick="playSound('bing.mp3');">Play</button>  
+
+        <p> 
+            <span id="watchdisplay">00:00:10</span> 
+        </p>
+
+
         <script>
-            setInterval('playTwoSoundsWithDelay("bing.mp3", "bong.mp3", 1000)', 2000)
+            function updateDisplay(watch) {
+                document.getElementById('watchdisplay').innerHTML = watch.toString()
+            }
+            var w = new Stopwatch(updateDisplay, 1000, false);
+
+            setInterval('playTwoSoundsWithDelay("bing.mp3", "bong.mp3", 1000*20/10, w)', 1000*60*20/20/6);
+                w.setElapsed(0, 00, 10);
+               w.start();
             function playSound(filename){
                 var sound=new Audio(filename);
                 sound.play();
             }
-            function playTwoSoundsWithDelay(sound1, sound2, delay) {
-                playSound(sound1);
+
+            function playTwoSoundsWithDelay(soundFile1, soundFile2, delay, watch) {
+                watch.stop();
+                watch.setElapsed(0,0,10);
+                document.getElementById('watchdisplay').innerHTML = watch.toString();
+                watch.start();
+                // Plays the first sound immediately, and the other after 'delay' milliseconds
+                playSound(soundFile1);
                 setTimeout(function(){
-                    playSound(sound2);
+                    playSound(soundFile2);
                 }, delay);
             }
+
+
         </script>
     </body>
 </html>
