@@ -7,36 +7,41 @@
     </head>
 
     <body>
-
-        <p> 
-            <span id="watchdisplay">00:00:10</span> 
-        </p>
-
+        <p><span id="watchdisplay">00:00:10</span></p>
 
         <script>
-            function updateDisplay(watch) {
+            var w = new Stopwatch(function(watch) {
+                // Listener function
                 document.getElementById('watchdisplay').innerHTML = watch.toString()
-            }
-            var w = new Stopwatch(updateDisplay, 1000, false);
+            } , 1000, false);
 
-            setInterval('playTwoSoundsWithDelay("bing.mp3", "bong.mp3", 1000*20/10, w)', 1000*60*20/20/6);
-                w.setElapsed(0, 00, 10);
-               w.start();
+            setInterval('loop("bing.mp3", "bong.mp3", 1000*20/10, w)', 1000*60*20/20/6);
+            w.setElapsed(0, 00, 10);
+            w.start();            
+
+            function loop(soundFile1, soundFile2, delayMilliSec, watch) {
+                resetWatch(watch);
+                playTwoSoundsWithDelay(soundFile1, soundFile2, delayMilliSec);
+            }
+
+            function resetWatch(watch) {
+                watch.stop();
+                watch.setElapsed(0,0,10);
+                watch.start();
+                document.getElementById('watchdisplay').innerHTML = watch.toString();
+            }
+
             function playSound(filename){
                 var sound=new Audio(filename);
                 sound.play();
             }
 
-            function playTwoSoundsWithDelay(soundFile1, soundFile2, delay, watch) {
-                watch.stop();
-                watch.setElapsed(0,0,10);
-                document.getElementById('watchdisplay').innerHTML = watch.toString();
-                watch.start();
+            function playTwoSoundsWithDelay(soundFile1, soundFile2, delayMilliSec, watch) {
                 // Plays the first sound immediately, and the other after 'delay' milliseconds
                 playSound(soundFile1);
                 setTimeout(function(){
                     playSound(soundFile2);
-                }, delay);
+                }, delayMilliSec);
             }
 
 
