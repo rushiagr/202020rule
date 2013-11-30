@@ -4,16 +4,22 @@
     <head>
         <title>Audio test</title>
         <script type="text/javascript" src="js/stopwatch.js"></script>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <link href="main.css" rel="stylesheet" media="screen"/>
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="boostrap/css/bootstrap.min.js"></script>
 
     </head>
 
     <body>
-        <p><span id="watchdisplay">00:00:10</span></p>
-
+    <div class="container">
+        <div id="watchText">Time to next break:</div>
+        <div id="watchDisplay">00:00:10</div>
+    </div>
         <script>
             var w = new Stopwatch(function(watch) {
                 // Listener function
-                document.getElementById('watchdisplay').innerHTML = watch.toString()
+                document.getElementById('watchDisplay').innerHTML = watch.toString()
             } , 1000, false);
 
             setInterval('loop("bing.mp3", "bong.mp3", 1000*20/10, w)', 1000*60*20/20/6);
@@ -29,7 +35,7 @@
                 watch.stop();
                 watch.setElapsed(0,0,10);
                 watch.start();
-                document.getElementById('watchdisplay').innerHTML = watch.toString();
+                document.getElementById('watchDisplay').innerHTML = watch.toString();
             }
 
             function playSound(filename){

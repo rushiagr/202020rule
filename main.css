@@ -1,0 +1,13 @@
+#watchText {
+	text-align: center;
+	font-size: 5em;
+	color: #005555;
+}
+
+#watchDisplay {
+	text-align: center;
+	font-size: 10em;
+	font-weight: bolder;
+	color: #008080
+}
+
