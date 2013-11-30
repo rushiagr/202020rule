@@ -7,12 +7,18 @@
     </head>
 
     <body>
-        <button onclick="playSound('bing');">Play</button>  
+        <button onclick="playSound('bing.mp3');">Play</button>  
         <script>
-            setInterval('playSound()', 2000);
-            function playSound(){
-                var sound=new Audio('bing.mp3');
+            setInterval('playTwoSoundsWithDelay("bing.mp3", "bong.mp3", 1000)', 2000)
+            function playSound(filename){
+                var sound=new Audio(filename);
                 sound.play();
+            }
+            function playTwoSoundsWithDelay(sound1, sound2, delay) {
+                playSound(sound1);
+                setTimeout(function(){
+                    playSound(sound2);
+                }, delay);
             }
         </script>
     </body>
