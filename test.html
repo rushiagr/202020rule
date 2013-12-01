@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Audio test</title>
+        <title>20-20-20 Rule</title>
         <script type="text/javascript" src="js/stopwatch.js"></script>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
         <link href="main.css" rel="stylesheet" media="screen"/>
@@ -14,50 +14,54 @@
     <body>
     <div class="container">
         <div id="watchText">Time to next break:</div>
-        <div id="watchDisplay">00:00:10</div>
+        <div id="watchDisplay">Watch's display (handeled by JavaScript)</div>
     </div>
         <script>
-            window.w = new Stopwatch(function(watch) {
-                // Listener function
-                document.getElementById('watchDisplay').innerHTML = watch.toString()
+            window.watch = new Stopwatch(function(watch) { // Listener function
+                document.getElementById('watchDisplay').innerHTML = watch.toString();
             } , 1000, false);
 
-            /* When normalPeriod is 'true', the user can carry on his tasks on computer, but when it
-             * is 'false', we'll alert the user to not look at the screen and relax eyes. */
-            window.normalPeriod = true;
+            /* When normalPeriod is 1, the user can carry on his tasks on computer, but when it
+             * is 0, we'll alert the user to not look at the screen and relax his/her eyes. */
+            window.isNormalPeriod = 1;  // used as boolean
             window.normalPeriodLength = 1000 * 60 * 20;    // 20 minutes
             window.relaxPeriodLength = 1000 * 20;          // 20 seconds
 
             window.soundFile1 = "bing.mp3";
             window.soundFile2 = "bong.mp3";
 
+            //temporary values 
+            //normalPeriodLength = 1000 * 10; relaxPeriodLength = 1000 * 2;
 
+            var watchTextValues = ["Don't look at the screen!!", "Time to next break:"];
 
-            //temporary values
-            normalPeriodLength = 1000 * 10;
-            relaxPeriodLength = 1000 * 2;
+            setInterval('loop()', normalPeriodLength);
 
-            var watchTextValues = ["Time to next break:", "Don't look at the screen!!"];
+            window.watch.setElapsed(0, 00, window.normalPeriodLength/1000);
+            document.getElementById('watchDisplay').innerHTML = window.watch.toString();
+            window.watch.start();
 
-            setInterval('loop(window.w)', normalPeriodLength);
-            window.w.setElapsed(0, 00, 10);
-            window.w.start();
-
-            function loop(watch) {
-                resetWatch(watch, window.normalPeriodLength);
-                playTwoSoundsWithDelay();
-//                toggleWatchText();
+            function loop() {
+                resetWatch(window.normalPeriodLength);
+                executeBothTasksWithDelay();
             }
 
-            function toggleWatchText() {
-                var textValue = document.getElementById('watchText').innerHTML;
-//                if textValue.substr(1,1) = "Don't look at the screen!!";
+            function resetWatch(timeMilliSec) {
+                window.watch.stop();
+                window.watch.setElapsed(0, 0, timeMilliSec/1000);
+                window.watch.start();
+                document.getElementById('watchDisplay').innerHTML = window.watch.toString();
             }
-            function resetWatch(watch, timeMilliSec) {
-                watch.stop();
-                watch.setElapsed(0,0,timeMilliSec/1000);
-                watch.start();
-                document.getElementById('watchDisplay').innerHTML = watch.toString();
+
+            function executeBothTasksWithDelay() {
+                playSound(window.soundFile1);
+                resetWatch(window.relaxPeriodLength);
+                toggleDisplay();
+                setTimeout(function(){
+                    playSound(window.soundFile2);
+                    resetWatch(window.normalPeriodLength - window.relaxPeriodLength);
+                    toggleDisplay();
+                }, window.relaxPeriodLength);
             }
 
             function playSound(filename){
@@ -65,14 +69,15 @@
                 sound.play();
             }
 
-            function playTwoSoundsWithDelay() {
-                // Plays the first sound immediately, and the other after 'delay' milliseconds
-                playSound(window.soundFile1);
-                resetWatch(window.w, window.relaxPeriodLength);
-                setTimeout(function(){
-                    playSound(window.soundFile2);
-                    resetWatch(window.w, window.normalPeriodLength - window.relaxPeriodLength)
-                }, window.relaxPeriodLength);
+            function toggleDisplay() {
+                if(isNormalPeriod==1) {
+                    isNormalPeriod = 0;
+                    document.getElementById('watchDisplay').style.color = "#FF3366";
+                } else {
+                    isNormalPeriod = 1;
+                    document.getElementById('watchDisplay').style.color = "#008080";
+                }
+                document.getElementById('watchText').innerHTML = watchTextValues[isNormalPeriod];
             }
 
 
