@@ -7,7 +7,7 @@
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
         <link href="main.css" rel="stylesheet" media="screen"/>
         <script src="js/jquery-1.10.2.min.js"></script>
-        <script src="boostrap/css/bootstrap.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
 
     </head>
 
@@ -17,23 +17,45 @@
         <div id="watchDisplay">00:00:10</div>
     </div>
         <script>
-            var w = new Stopwatch(function(watch) {
+            window.w = new Stopwatch(function(watch) {
                 // Listener function
                 document.getElementById('watchDisplay').innerHTML = watch.toString()
             } , 1000, false);
 
-            setInterval('loop("bing.mp3", "bong.mp3", 1000*20/10, w)', 1000*60*20/20/6);
-            w.setElapsed(0, 00, 10);
-            w.start();            
+            /* When normalPeriod is 'true', the user can carry on his tasks on computer, but when it
+             * is 'false', we'll alert the user to not look at the screen and relax eyes. */
+            window.normalPeriod = true;
+            window.normalPeriodLength = 1000 * 60 * 20;    // 20 minutes
+            window.relaxPeriodLength = 1000 * 20;          // 20 seconds
 
-            function loop(soundFile1, soundFile2, delayMilliSec, watch) {
-                resetWatch(watch);
-                playTwoSoundsWithDelay(soundFile1, soundFile2, delayMilliSec);
+            window.soundFile1 = "bing.mp3";
+            window.soundFile2 = "bong.mp3";
+
+
+
+            //temporary values
+            normalPeriodLength = 1000 * 10;
+            relaxPeriodLength = 1000 * 2;
+
+            var watchTextValues = ["Time to next break:", "Don't look at the screen!!"];
+
+            setInterval('loop(window.w)', normalPeriodLength);
+            window.w.setElapsed(0, 00, 10);
+            window.w.start();
+
+            function loop(watch) {
+                resetWatch(watch, window.normalPeriodLength);
+                playTwoSoundsWithDelay();
+//                toggleWatchText();
             }
 
-            function resetWatch(watch) {
+            function toggleWatchText() {
+                var textValue = document.getElementById('watchText').innerHTML;
+//                if textValue.substr(1,1) = "Don't look at the screen!!";
+            }
+            function resetWatch(watch, timeMilliSec) {
                 watch.stop();
-                watch.setElapsed(0,0,10);
+                watch.setElapsed(0,0,timeMilliSec/1000);
                 watch.start();
                 document.getElementById('watchDisplay').innerHTML = watch.toString();
             }
@@ -43,12 +65,14 @@
                 sound.play();
             }
 
-            function playTwoSoundsWithDelay(soundFile1, soundFile2, delayMilliSec, watch) {
+            function playTwoSoundsWithDelay() {
                 // Plays the first sound immediately, and the other after 'delay' milliseconds
-                playSound(soundFile1);
+                playSound(window.soundFile1);
+                resetWatch(window.w, window.relaxPeriodLength);
                 setTimeout(function(){
-                    playSound(soundFile2);
-                }, delayMilliSec);
+                    playSound(window.soundFile2);
+                    resetWatch(window.w, window.normalPeriodLength - window.relaxPeriodLength)
+                }, window.relaxPeriodLength);
             }
 
 
