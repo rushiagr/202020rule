@@ -27,8 +27,8 @@
             window.normalPeriodLength = 1000 * 60 * 20;    // 20 minutes
             window.relaxPeriodLength = 1000 * 20;          // 20 seconds
 
-            window.soundFile1 = "sounds/bing.mp3";
-            window.soundFile2 = "sounds/bong.mp3";
+            window.soundFile1 = new Audio("sounds/bing.mp3");
+            window.soundFile2 = new Audio("sounds/bong.mp3");
 
             //temporary values 
             //normalPeriodLength = 1000 * 10; relaxPeriodLength = 1000 * 2;
@@ -54,19 +54,14 @@
             }
 
             function executeBothTasksWithDelay() {
-                playSound(window.soundFile1);
+                window.soundFile1.play();
                 resetWatch(window.relaxPeriodLength);
                 toggleDisplay();
                 setTimeout(function(){
-                    playSound(window.soundFile2);
+                    window.soundFile2.play();
                     resetWatch(window.normalPeriodLength - window.relaxPeriodLength);
                     toggleDisplay();
                 }, window.relaxPeriodLength);
-            }
-
-            function playSound(filename){
-                var sound=new Audio(filename);
-                sound.play();
             }
 
             function toggleDisplay() {
