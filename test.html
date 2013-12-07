@@ -15,7 +15,7 @@
     <div class="container">
         <div id="watchText">Time to next break:</div>
         <div id="watchDisplay">Watch's display (handeled by JavaScript)</div>
-        <button type="button" class="btn btn-primary" id="resetButton" onclick="window.loopCaller()">Reset</button>
+        <button type="button" class="btn btn-primary" id="resetButton" onclick="window.startAfresh()">Reset</button>
     </div>
         <script>
             window.watch = new Stopwatch(function(watch) { // Listener function
@@ -35,19 +35,19 @@
 
             var watchTextValues = ["Don't look at the screen!!", "Time to next break:"];
 
-            window.loopCaller = function() {
-                window.isNormalPeriod = 0;
-                window.toggleDisplay();
-                window.watch.setElapsed(0, 00, window.normalPeriodLength/1000);
-                document.getElementById('watchDisplay').innerHTML = window.watch.toString();
-                window.watch.start();
-                clearInterval(window.alreadySetInterval);
-                clearTimeout(window.alreadySetTimeout);
+            window.startAfresh = function() {
+                setDisplayForBool(window.isNormalPeriod);
+                clearIntervalsAndTimeouts();
+                resetWatch(window.normalPeriodLength);
                 window.alreadySetInterval = setInterval('loop()', window.normalPeriodLength);
             }
 
-            window.loopCaller();
+            window.startAfresh();
 
+            function clearIntervalsAndTimeouts() {
+                clearInterval(window.alreadySetInterval);
+                clearTimeout(window.alreadySetTimeout);
+            }
 
             function loop() {
                 resetWatch(window.normalPeriodLength);
@@ -64,32 +64,23 @@
             function executeBothTasksWithDelay() {
                 window.soundFile1.play();
                 resetWatch(window.relaxPeriodLength);
-                toggleDisplay();
+                setDisplayForBool(0);
                 window.alreadySetTimeout = setTimeout(function(){
                     window.soundFile2.play();
                     resetWatch(window.normalPeriodLength - window.relaxPeriodLength);
-                    toggleDisplay();
+                    setDisplayForBool(1);
                 }, window.relaxPeriodLength);
             }
 
-            function toggleDisplay() {
-                if(isNormalPeriod==1) {
-                    isNormalPeriod = 0;
-                    document.getElementById('watchDisplay').style.color = "#FF3366";
-                } else {
-                    isNormalPeriod = 1;
-                    document.getElementById('watchDisplay').style.color = "#008080";
+            function setDisplayForBool(boolVal) {
+                if(boolVal==1) {
+                    watchColour = "#008080";
+                } else if(boolVal==0) {
+                    watchColour = "#FF3366";
                 }
-                document.getElementById('watchText').innerHTML = watchTextValues[isNormalPeriod];
+                document.getElementById('watchDisplay').style.color = watchColour;
+                document.getElementById('watchText').innerHTML = watchTextValues[boolVal];
             }
-
-            function resetWatchOnScreen() {
-                window.watch.stop();
-                window.watch.setElapsed(0, 0, normalPeriodLength/1000);
-                window.watch.start();
-                document.getElementById('watchDisplay').innerHTML = window.watch.toString();
-            }
-
 
         </script>
     </body>

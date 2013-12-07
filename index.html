@@ -15,6 +15,7 @@
     <div class="container">
         <div id="watchText">Time to next break:</div>
         <div id="watchDisplay">Watch's display (handeled by JavaScript)</div>
+        <button type="button" class="btn btn-primary" id="resetButton" onclick="window.startAfresh()">Reset</button>
     </div>
         <script>
             window.watch = new Stopwatch(function(watch) { // Listener function
@@ -26,20 +27,27 @@
             window.isNormalPeriod = 1;  // used as boolean
             window.normalPeriodLength = 1000 * 60 * 20;    // 20 minutes
             window.relaxPeriodLength = 1000 * 20;          // 20 seconds
+            //temporary values 
+            //window.normalPeriodLength = 1000 * 10; window.relaxPeriodLength = 1000 * 2;
 
             window.soundFile1 = new Audio("sounds/bing.mp3");
             window.soundFile2 = new Audio("sounds/bong.mp3");
 
-            //temporary values 
-            //normalPeriodLength = 1000 * 10; relaxPeriodLength = 1000 * 2;
-
             var watchTextValues = ["Don't look at the screen!!", "Time to next break:"];
 
+            window.startAfresh = function() {
+                setDisplayForBool(window.isNormalPeriod);
+                clearIntervalsAndTimeouts();
+                resetWatch(window.normalPeriodLength);
+                window.alreadySetInterval = setInterval('loop()', window.normalPeriodLength);
+            }
 
-            window.watch.setElapsed(0, 00, window.normalPeriodLength/1000);
-            document.getElementById('watchDisplay').innerHTML = window.watch.toString();
-            window.watch.start();
-            setInterval('loop()', normalPeriodLength);
+            window.startAfresh();
+
+            function clearIntervalsAndTimeouts() {
+                clearInterval(window.alreadySetInterval);
+                clearTimeout(window.alreadySetTimeout);
+            }
 
             function loop() {
                 resetWatch(window.normalPeriodLength);
@@ -56,25 +64,23 @@
             function executeBothTasksWithDelay() {
                 window.soundFile1.play();
                 resetWatch(window.relaxPeriodLength);
-                toggleDisplay();
-                setTimeout(function(){
+                setDisplayForBool(0);
+                window.alreadySetTimeout = setTimeout(function(){
                     window.soundFile2.play();
                     resetWatch(window.normalPeriodLength - window.relaxPeriodLength);
-                    toggleDisplay();
+                    setDisplayForBool(1);
                 }, window.relaxPeriodLength);
             }
 
-            function toggleDisplay() {
-                if(isNormalPeriod==1) {
-                    isNormalPeriod = 0;
-                    document.getElementById('watchDisplay').style.color = "#FF3366";
-                } else {
-                    isNormalPeriod = 1;
-                    document.getElementById('watchDisplay').style.color = "#008080";
+            function setDisplayForBool(boolVal) {
+                if(boolVal==1) {
+                    watchColour = "#008080";
+                } else if(boolVal==0) {
+                    watchColour = "#FF3366";
                 }
-                document.getElementById('watchText').innerHTML = watchTextValues[isNormalPeriod];
+                document.getElementById('watchDisplay').style.color = watchColour;
+                document.getElementById('watchText').innerHTML = watchTextValues[boolVal];
             }
-
 
         </script>
     </body>
