@@ -35,11 +35,11 @@
 
             var watchTextValues = ["Don't look at the screen!!", "Time to next break:"];
 
-            setInterval('loop()', normalPeriodLength);
 
             window.watch.setElapsed(0, 00, window.normalPeriodLength/1000);
             document.getElementById('watchDisplay').innerHTML = window.watch.toString();
             window.watch.start();
+            setInterval('loop()', normalPeriodLength);
 
             function loop() {
                 resetWatch(window.normalPeriodLength);

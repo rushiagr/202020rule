@@ -15,6 +15,7 @@
     <div class="container">
         <div id="watchText">Time to next break:</div>
         <div id="watchDisplay">Watch's display (handeled by JavaScript)</div>
+        <button type="button" class="btn btn-primary" id="resetButton" onclick="window.loopCaller()">Reset</button>
     </div>
         <script>
             window.watch = new Stopwatch(function(watch) { // Listener function
@@ -26,20 +27,27 @@
             window.isNormalPeriod = 1;  // used as boolean
             window.normalPeriodLength = 1000 * 60 * 20;    // 20 minutes
             window.relaxPeriodLength = 1000 * 20;          // 20 seconds
+            //temporary values 
+            window.normalPeriodLength = 1000 * 10; window.relaxPeriodLength = 1000 * 2;
 
             window.soundFile1 = new Audio("sounds/bing.mp3");
             window.soundFile2 = new Audio("sounds/bong.mp3");
 
-            //temporary values 
-            normalPeriodLength = 1000 * 10; relaxPeriodLength = 1000 * 2;
-
             var watchTextValues = ["Don't look at the screen!!", "Time to next break:"];
 
-            setInterval('loop()', normalPeriodLength);
+            window.loopCaller = function() {
+                window.isNormalPeriod = 0;
+                window.toggleDisplay();
+                window.watch.setElapsed(0, 00, window.normalPeriodLength/1000);
+                document.getElementById('watchDisplay').innerHTML = window.watch.toString();
+                window.watch.start();
+                clearInterval(window.alreadySetInterval);
+                clearTimeout(window.alreadySetTimeout);
+                window.alreadySetInterval = setInterval('loop()', window.normalPeriodLength);
+            }
 
-            window.watch.setElapsed(0, 00, window.normalPeriodLength/1000);
-            document.getElementById('watchDisplay').innerHTML = window.watch.toString();
-            window.watch.start();
+            window.loopCaller();
+
 
             function loop() {
                 resetWatch(window.normalPeriodLength);
@@ -57,7 +65,7 @@
                 window.soundFile1.play();
                 resetWatch(window.relaxPeriodLength);
                 toggleDisplay();
-                setTimeout(function(){
+                window.alreadySetTimeout = setTimeout(function(){
                     window.soundFile2.play();
                     resetWatch(window.normalPeriodLength - window.relaxPeriodLength);
                     toggleDisplay();
@@ -73,6 +81,13 @@
                     document.getElementById('watchDisplay').style.color = "#008080";
                 }
                 document.getElementById('watchText').innerHTML = watchTextValues[isNormalPeriod];
+            }
+
+            function resetWatchOnScreen() {
+                window.watch.stop();
+                window.watch.setElapsed(0, 0, normalPeriodLength/1000);
+                window.watch.start();
+                document.getElementById('watchDisplay').innerHTML = window.watch.toString();
             }
 
 
