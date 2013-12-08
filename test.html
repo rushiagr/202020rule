@@ -53,10 +53,11 @@
             /* When normalPeriod is 1, the user can carry on his tasks on computer, but when it
              * is 0, we'll alert the user to not look at the screen and relax his/her eyes. */
             window.isNormalPeriod = 1;  // used as boolean
-            window.normalPeriodLength = 1000 * 60 * 20;    // 20 minutes
-            window.relaxPeriodLength = 1000 * 20;          // 20 seconds
+            window.normalPeriodLength = 1000*60*20;    // 20 minutes
+            window.relaxPeriodLength = 1000*20;          // 20 seconds
+            poppedUpWindow = 'dummyValue';
             //temporary values 
-            window.normalPeriodLength = 1000 * 10; window.relaxPeriodLength = 1000 * 2;
+            window.normalPeriodLength = 1000*10; window.relaxPeriodLength = 1000*2;
 
             window.soundFile1 = new Audio("sounds/bing.ogg");
             window.soundFile2 = new Audio("sounds/bong.ogg");
@@ -68,6 +69,7 @@
                 clearIntervalsAndTimeouts();
                 resetWatch(window.normalPeriodLength);
                 window.alreadySetInterval = setInterval('loop()', window.normalPeriodLength);
+                if (poppedUpWindow !== 'dummyValue') {poppedUpWindow.close();}
             }
 
             window.startAfresh();
@@ -99,10 +101,12 @@
                 window.soundFile1.play();
                 resetWatch(window.relaxPeriodLength);
                 setDisplayForBool(0);
+                poppedUpWindow = window.open('popupPage.html', '', config='height=300,width=300');
                 window.alreadySetTimeout = setTimeout(function(){
                     window.soundFile2.play();
                     resetWatch(window.normalPeriodLength - window.relaxPeriodLength);
                     setDisplayForBool(1);
+                    poppedUpWindow.close();
                 }, window.relaxPeriodLength);
             }
 
