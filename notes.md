@@ -8,3 +8,6 @@ function playSound(filename){
 
 ### Website for some pretty cool short tones:
     http://oringz.com/
+
+### More info on customizing popups:
+	http://www.htmlgoodies.com/beyond/javascript/article.php/3471221
