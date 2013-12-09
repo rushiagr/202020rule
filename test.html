@@ -53,26 +53,26 @@
             /* When normalPeriod is 1, the user can carry on his tasks on computer, but when it
              * is 0, we'll alert the user to not look at the screen and relax his/her eyes. */
             window.isNormalPeriod = 1;  // used as boolean
-            window.normalPeriodLength = 1000*60*20;    // 20 minutes
-            window.relaxPeriodLength = 1000*20;          // 20 seconds
+            window.normalPeriodLengthMilliSec = 1000*60*20;    // 20 minutes
+            window.relaxPeriodLengthMilliSec = 1000*20;          // 20 seconds
             poppedUpWindow = 'dummyValue';
             //temporary values 
-            window.normalPeriodLength = 1000*10; window.relaxPeriodLength = 1000*2;
+            window.normalPeriodLengthMilliSec = 1000*10; window.relaxPeriodLengthMilliSec = 1000*2;
 
             window.soundFile1 = new Audio("sounds/bing.ogg");
             window.soundFile2 = new Audio("sounds/bong.ogg");
 
-            var normalPeriodFromCookie = readCookie("normalPeriodCookie");
-            var relaxPeriodFromCookie = readCookie("relaxPeriodCookie");
+            var normalPeriodFromCookieMilliSec = readCookie("normalPeriodCookieMilliSec");
+            var relaxPeriodFromCookieMilliSec = readCookie("relaxPeriodCookieMilliSec");
 
-            if(normalPeriodFromCookie) {
-                window.normalPeriodLength = normalPeriodFromCookie;
-                document.getElementById('normalDurationMins').value = normalPeriodFromCookie/1000/60;
+            if(normalPeriodFromCookieMilliSec) {
+                window.normalPeriodLengthMilliSec = normalPeriodFromCookieMilliSec;
+                document.getElementById('normalDurationMins').value = normalPeriodFromCookieMilliSec/1000/60;
             }
 
-            if(relaxPeriodFromCookie) {
-                window.relaxPeriodLength = relaxPeriodFromCookie;
-                document.getElementById('relaxDurationSecs').value = relaxPeriodFromCookie/1000;
+            if(relaxPeriodFromCookieMilliSec) {
+                window.relaxPeriodLengthMilliSec = relaxPeriodFromCookieMilliSec;
+                document.getElementById('relaxDurationSecs').value = relaxPeriodFromCookieMilliSec/1000;
             }
 
             var watchTextValues = ["Don't look at the screen!!", "Time to next break:"];
@@ -80,19 +80,19 @@
             window.startAfresh = function() {
                 setDisplayForBool(window.isNormalPeriod);
                 clearIntervalsAndTimeouts();
-                resetWatch(window.normalPeriodLength);
-                window.alreadySetInterval = setInterval('loop()', window.normalPeriodLength);
+                resetWatch(window.normalPeriodLengthMilliSec);
+                window.alreadySetInterval = setInterval('loop()', window.normalPeriodLengthMilliSec);
                 if (poppedUpWindow !== 'dummyValue') {poppedUpWindow.close();}
             }
 
             window.startAfresh();
 
             function modifyTimes() {
-                window.normalPeriodLength = 1000*60*parseInt(document.getElementById('normalDurationMins').value);
-                window.relaxPeriodLength = 1000*parseInt(document.getElementById('relaxDurationSecs').value);
+                window.normalPeriodLengthMilliSec = 1000*60*parseInt(document.getElementById('normalDurationMins').value);
+                window.relaxPeriodLengthMilliSec = 1000*parseInt(document.getElementById('relaxDurationSecs').value);
 
-                createCookie("normalPeriodCookie", window.normalPeriodLength, 365*20);
-                createCookie("relaxPeriodCookie", window.relaxPeriodLength, 365*20);
+                createCookie("normalPeriodCookieMilliSec", window.normalPeriodLengthMilliSec, 365*20);
+                createCookie("relaxPeriodCookieMilliSec", window.relaxPeriodLengthMilliSec, 365*20);
 
                 window.startAfresh();
             }
@@ -103,7 +103,7 @@
             }
 
             function loop() {
-                resetWatch(window.normalPeriodLength);
+                resetWatch(window.normalPeriodLengthMilliSec);
                 executeBothTasksWithDelay();
             }
 
@@ -116,15 +116,15 @@
 
             function executeBothTasksWithDelay() {
                 window.soundFile1.play();
-                resetWatch(window.relaxPeriodLength);
+                resetWatch(window.relaxPeriodLengthMilliSec);
                 setDisplayForBool(0);
                 poppedUpWindow = window.open('popupPage.html', '', config='height=300,width=300');
                 window.alreadySetTimeout = setTimeout(function(){
                     window.soundFile2.play();
-                    resetWatch(window.normalPeriodLength - window.relaxPeriodLength);
+                    resetWatch(window.normalPeriodLengthMilliSec - window.relaxPeriodLengthMilliSec);
                     setDisplayForBool(1);
                     poppedUpWindow.close();
-                }, window.relaxPeriodLength);
+                }, window.relaxPeriodLengthMilliSec);
             }
 
             function setDisplayForBool(boolVal) {
