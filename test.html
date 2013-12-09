@@ -62,6 +62,19 @@
             window.soundFile1 = new Audio("sounds/bing.ogg");
             window.soundFile2 = new Audio("sounds/bong.ogg");
 
+            var normalPeriodFromCookie = readCookie("normalPeriodCookie");
+            var relaxPeriodFromCookie = readCookie("relaxPeriodCookie");
+
+            if(normalPeriodFromCookie) {
+                window.normalPeriodLength = normalPeriodFromCookie;
+                document.getElementById('normalDurationMins').value = normalPeriodFromCookie/1000/60;
+            }
+
+            if(relaxPeriodFromCookie) {
+                window.relaxPeriodLength = relaxPeriodFromCookie;
+                document.getElementById('relaxDurationSecs').value = relaxPeriodFromCookie/1000;
+            }
+
             var watchTextValues = ["Don't look at the screen!!", "Time to next break:"];
 
             window.startAfresh = function() {
@@ -77,6 +90,10 @@
             function modifyTimes() {
                 window.normalPeriodLength = 1000*60*parseInt(document.getElementById('normalDurationMins').value);
                 window.relaxPeriodLength = 1000*parseInt(document.getElementById('relaxDurationSecs').value);
+
+                createCookie("normalPeriodCookie", window.normalPeriodLength, 365*20);
+                createCookie("relaxPeriodCookie", window.relaxPeriodLength, 365*20);
+
                 window.startAfresh();
             }
 
