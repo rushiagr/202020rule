@@ -29,18 +29,10 @@
                 <input class="form-control" id="relaxDurationSecs" placeholder="20">
             </div>
         </div>
-<!--             <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Remember me
-                    </label>
-                </div>
-            </div>
-        </div>    
--->            <div>
+        <div>
             <div class="col-sm-offset-2 col-sm-1">
-                <button  class="btn btn-default" onclick="modifyTimes()">Apply</button>
+                <button  class="btn btn-default" onclick="modifyTimes()">Apply</button> 
+                <!-- TODO: modifyTimes -> ApplyModification -->
             </div>
         </div>
 
@@ -92,8 +84,25 @@
             window.startAfresh();
 
             function modifyTimes() {
-                window.normalPeriodLengthMilliSec = 1000*60*parseInt(document.getElementById('normalDurationMins').value);
-                window.relaxPeriodLengthMilliSec = 1000*parseInt(document.getElementById('relaxDurationSecs').value);
+                var normalCookieStr = document.getElementById('normalDurationMins').value;
+                var relaxCookieStr = document.getElementById('relaxDurationSecs').value;
+
+                if(isNaN(Number(normalCookieStr)) || isNaN(Number(relaxCookieStr))) {
+                    alert("Please check the number you have entered.");
+                    return;
+                }
+
+                // Rounding off to fall at the edge of a second
+                var normalMilli = Math.round(Number(normalCookieStr)*60*1000/1000)*1000;
+                var relaxMilli = Math.round(Number(relaxCookieStr)*1000/1000)*1000;
+
+                if(relaxMilli >= normalMilli) {
+                    alert("Duration of break can't be more than normal working period :)");
+                    return;
+                }
+
+                window.normalPeriodLengthMilliSec = normalMilli;
+                window.relaxPeriodLengthMilliSec = relaxMilli;
 
                 createCookie("normalPeriodCookieMilliSec", window.normalPeriodLengthMilliSec, 365*20);
                 createCookie("relaxPeriodCookieMilliSec", window.relaxPeriodLengthMilliSec, 365*20);
