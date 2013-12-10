@@ -48,9 +48,9 @@
             window.isNormalPeriod = 1;  // used as boolean
             window.normalPeriodLengthMilliSec = 1000*60*20;    // 20 minutes
             window.relaxPeriodLengthMilliSec = 1000*20;          // 20 seconds
-            poppedUpWindow = 'dummyValue';
+            //poppedUpWindow = 'dummyValue';
             //temporary values 
-            window.normalPeriodLengthMilliSec = 1000*10; window.relaxPeriodLengthMilliSec = 1000*2;
+            //window.normalPeriodLengthMilliSec = 1000*10; window.relaxPeriodLengthMilliSec = 1000*2;
 
             window.soundFile1 = new Audio("sounds/bing.ogg");
             window.soundFile2 = new Audio("sounds/bong.ogg");
@@ -79,7 +79,7 @@
                 clearIntervalsAndTimeouts();
                 resetWatch(window.normalPeriodLengthMilliSec);
                 window.alreadySetInterval = setInterval('loop()', window.normalPeriodLengthMilliSec);
-                if (poppedUpWindow !== 'dummyValue') {poppedUpWindow.close();}
+                //if (poppedUpWindow !== 'dummyValue') {poppedUpWindow.close();}
             }
 
             window.startAfresh();
@@ -132,12 +132,12 @@
                 window.soundFile1.play();
                 resetWatch(window.relaxPeriodLengthMilliSec);
                 setDisplayForBool(0);
-                poppedUpWindow = window.open('popupPage.html', '', config='height=300,width=300');
+                //poppedUpWindow = window.open('popupPage.html', '', config='height=300,width=300');
                 window.alreadySetTimeout = setTimeout(function(){
                     window.soundFile2.play();
                     resetWatch(window.normalPeriodLengthMilliSec - window.relaxPeriodLengthMilliSec);
                     setDisplayForBool(1);
-                    poppedUpWindow.close();
+                    //poppedUpWindow.close();
                 }, window.relaxPeriodLengthMilliSec);
             }
 

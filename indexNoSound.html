@@ -36,7 +36,7 @@
             </div>
         </div>
         <br><br>
-        <p>Don't like playing sounds? <a href="indexNoSound.html">Click here</a> to get alerted through a popup!</p>
+        <p><a href="index.html">Go back</a> to get alerted via sound.</p>
     </div>
         <script>
             window.watch = new Stopwatch(function(watch) { // Listener function
@@ -52,8 +52,8 @@
             //temporary values 
             window.normalPeriodLengthMilliSec = 1000*10; window.relaxPeriodLengthMilliSec = 1000*2;
 
-            window.soundFile1 = new Audio("sounds/bing.ogg");
-            window.soundFile2 = new Audio("sounds/bong.ogg");
+//            window.soundFile1 = new Audio("sounds/bing.ogg");
+//            window.soundFile2 = new Audio("sounds/bong.ogg");
 
             function readFromCookie() {
                 var normalPeriodFromCookieMilliSec = readCookie("normalPeriodCookieMilliSec");
@@ -129,12 +129,12 @@
             }
 
             function executeBothTasksWithDelay() {
-                window.soundFile1.play();
+//                window.soundFile1.play();
                 resetWatch(window.relaxPeriodLengthMilliSec);
                 setDisplayForBool(0);
                 poppedUpWindow = window.open('popupPage.html', '', config='height=300,width=300');
                 window.alreadySetTimeout = setTimeout(function(){
-                    window.soundFile2.play();
+//                    window.soundFile2.play();
                     resetWatch(window.normalPeriodLengthMilliSec - window.relaxPeriodLengthMilliSec);
                     setDisplayForBool(1);
                     poppedUpWindow.close();
