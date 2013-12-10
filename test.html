@@ -62,18 +62,22 @@
             window.soundFile1 = new Audio("sounds/bing.ogg");
             window.soundFile2 = new Audio("sounds/bong.ogg");
 
-            var normalPeriodFromCookieMilliSec = readCookie("normalPeriodCookieMilliSec");
-            var relaxPeriodFromCookieMilliSec = readCookie("relaxPeriodCookieMilliSec");
+            function readFromCookie() {
+                var normalPeriodFromCookieMilliSec = readCookie("normalPeriodCookieMilliSec");
+                var relaxPeriodFromCookieMilliSec = readCookie("relaxPeriodCookieMilliSec");
 
-            if(normalPeriodFromCookieMilliSec) {
-                window.normalPeriodLengthMilliSec = normalPeriodFromCookieMilliSec;
-                document.getElementById('normalDurationMins').value = normalPeriodFromCookieMilliSec/1000/60;
+                if(normalPeriodFromCookieMilliSec) {
+                    window.normalPeriodLengthMilliSec = normalPeriodFromCookieMilliSec;
+                    document.getElementById('normalDurationMins').value = normalPeriodFromCookieMilliSec/1000/60;
+                }
+
+                if(relaxPeriodFromCookieMilliSec) {
+                    window.relaxPeriodLengthMilliSec = relaxPeriodFromCookieMilliSec;
+                    document.getElementById('relaxDurationSecs').value = relaxPeriodFromCookieMilliSec/1000;
+                }
             }
 
-            if(relaxPeriodFromCookieMilliSec) {
-                window.relaxPeriodLengthMilliSec = relaxPeriodFromCookieMilliSec;
-                document.getElementById('relaxDurationSecs').value = relaxPeriodFromCookieMilliSec/1000;
-            }
+            readFromCookie();
 
             var watchTextValues = ["Don't look at the screen!!", "Time to next break:"];
 
