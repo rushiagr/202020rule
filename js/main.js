@@ -1,8 +1,3 @@
-createWatch();
-populateDefaultValues();
-readFromCookie();
-startAfresh();
-
 function createWatch() {
     window.watch = new Stopwatch(function(watch) { // Listener function
         document.getElementById('watchDisplay').innerHTML = watch.toString();
@@ -10,12 +5,19 @@ function createWatch() {
 }
 
 
-function populateDefaultValues() {
+function populateDefaultValues(isPopup) {
     /* When normalPeriod is 1, the user can carry on his tasks on computer, but when it
      * is 0, we'll alert the user to not look at the screen and relax his/her eyes. */
     window.isNormalPeriod = 1;  // used as boolean
     window.normalPeriodLengthMilliSec = 1000*60*20;    // 20 minutes
     window.relaxPeriodLengthMilliSec = 1000*20;          // 20 seconds
+
+    if(isPopup) {
+        window.isPopup = true;
+        poppedUpWindow = 'dummyValue';
+    } else {
+        window.isPopup = false;
+    }
     //poppedUpWindow = 'dummyValue';
     //temporary values 
     //window.normalPeriodLengthMilliSec = 1000*10; window.relaxPeriodLengthMilliSec = 1000*2;
@@ -43,12 +45,16 @@ function readFromCookie() {
 }
 
 
-
 function startAfresh() {
     setDisplayForBool(window.isNormalPeriod);
     clearIntervalsAndTimeouts();
     resetWatch(window.normalPeriodLengthMilliSec);
     window.alreadySetInterval = setInterval('loop()', window.normalPeriodLengthMilliSec);
+    if(window.isPopup) {
+        if(poppedUpWindow !== 'dummyValue') {
+            poppedUpWindow.close();
+        }
+    }
     //if (poppedUpWindow !== 'dummyValue') {poppedUpWindow.close();}
 }
 
@@ -98,12 +104,21 @@ function resetWatch(timeMilliSec) {
 }
 
 function executeBothTasksWithDelay() {
-    window.soundFile1.play();
+    if(window.isPopup) {
+        poppedUpWindow = window.open('popupPage.html', '', config='height=300,width=300');
+    } else {
+        window.soundFile1.play();
+    }
     resetWatch(window.relaxPeriodLengthMilliSec);
     setDisplayForBool(0);
     //poppedUpWindow = window.open('popupPage.html', '', config='height=300,width=300');
     window.alreadySetTimeout = setTimeout(function(){
-        window.soundFile2.play();
+        if(window.isPopup) {
+            poppedUpWindow.close();
+        } else {
+            window.soundFile2.play();
+        }
+//        window.soundFile2.play();
         resetWatch(window.normalPeriodLengthMilliSec - window.relaxPeriodLengthMilliSec);
         setDisplayForBool(1);
         //poppedUpWindow.close();
@@ -148,4 +163,3 @@ function readCookie(cookieName) {
 function eraseCookie(cookieName) {
     createCookie(cookieName, "", -1);
 }
-
