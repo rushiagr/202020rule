@@ -1,13 +1,21 @@
 #watchText {
 	text-align: center;
-	font-size: 5em;
+	font-size: 2em;
 	color: #005555;
 }
 
 #watchDisplay {
 	text-align: center;
-	font-size: 10em;
+	font-size: 4em;
 	font-weight: bolder;
 	color: #008080
 }
 
+#buttonDiv {
+	text-align: center;
+	padding: 1em;
+}
+
+#resetButton {
+	font-size: 3em;
+}
