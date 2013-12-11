@@ -13,11 +13,25 @@
 
     <body>
     <div class="container">
-        <div id="watchText">Time to next break:</div>
+        <div id="pageHeading">20-20-20 Rule</div>
+        <div id="pageDescription">After every 20 minutes, you (the computer user) should take a break for at least 20 seconds and look at objects that are 20 feet away from you.</div>
+        <div id="watchText">Time to next breaaaaaaaaaaaaak:</div>
         <div id="watchDisplay">Watch's display (handeled by JavaScript)</div>
         <div id="buttonDiv">
             <button type="button" class="btn btn-primary" id="resetButton" onclick="window.startAfresh()">Reset clock</button>
         </div>
+        
+
+        <div id="modifyAccordionHeader">
+            <a data-toggle="collapse" data-target="#demo">
+                simple collapsible
+            </a> Also, click this page to go to blah
+        </div>
+
+        <div id="demo" class="collapse">...bwahahaha
+        
+
+
         <div>
             <label for="normalDurationMins" class="col-sm-2 control-label">Normal working period (minutes)</label>
             <div class="col-sm-1">
@@ -35,6 +49,7 @@
                 <button  class="btn btn-default" onclick="modifyTimes()">Apply</button> 
                 <!-- TODO: modifyTimes -> ApplyModification -->
             </div>
+        </div>
         </div>
         <br><br>
         <p>Don't like playing sounds? <a href="indexNoSound.html">Click here</a> to get alerted through a popup!</p>

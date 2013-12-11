@@ -25,7 +25,10 @@ function populateDefaultValues(isPopup) {
     window.soundFile1 = new Audio("sounds/bing.ogg");
     window.soundFile2 = new Audio("sounds/bong.ogg");
     
-    window.watchTextValues = ["Don't look at the screen!!", "Time to next break:"];
+    window.watchTextValues = [
+                "Time to give your eyes a break. Don't look at the screen!!", 
+                "Keep working. We'll inform you of a break in:"
+                ];
 }
 
 
