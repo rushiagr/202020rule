@@ -16,7 +16,7 @@
         <div id="pageHeading">20-20-20 Rule</div>
         <div id="pageDescription">After every 20 minutes, you (the computer user) should take a break for at least 20 seconds and look at objects that are 20 feet away from you.</div>
         <div id="watchText">Time to next breaaaaaaaaaaaaak:</div>
-        <div id="watchDisplay">Watch's display (handeled by JavaScript)</div>
+        <div id="watchDisplay">00:00:00</div>
         <div id="buttonDiv">
             <button type="button" class="btn btn-primary" id="resetButton" onclick="window.startAfresh()">Reset clock</button>
         </div>
@@ -28,62 +28,29 @@
             </a>
         </div>
         <div id="demo" class="collapse">
-            <div class="row">
-                <div>
-                    <label for="normalDurationMins" class="col-sm-2 control-label">Normal working period (minutes)</label>
-                    <div class="col-sm-1">
+            <div class="form-horizontal" role="form" >
+                <div class="form-group">
+                    <label for="normalDurationMins" class="col-sm-6 control-label">Normal working period (minutes)</label>
+                    <div class="col-sm-2">
                         <input class="form-control" id="normalDurationMins" placeholder="20">
                     </div>
                 </div>
-                <div>
-                    <label for="relaxDurationSecs" class="col-sm-2 control-label">Duration of break (seconds)</label>
-                    <div class="col-sm-1">
+                <div class="form-group">
+                    <label for="relaxDurationSecs" class="col-sm-6 control-label">Duration of break (seconds)</label>
+                    <div class="col-sm-2">
                         <input class="form-control" id="relaxDurationSecs" placeholder="20">
                     </div>
                 </div>
-                <div>
-                    <div class="col-sm-offset-2 col-sm-1">
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-6"></label>
+                    <div class="col-sm-5">
                         <button  class="btn btn-default" onclick="modifyTimes()">Apply</button> 
                         <!-- TODO: modifyTimes -> ApplyModification -->
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div>
-                    <label>Normal working period (minutes)</label>
-                    <div>
-                        <input class="form-control" id="normalDurationMins" placeholder="20">
-                    </div>
-                </div>
-                <div>
-                    <label for="relaxDurationSecs" class="col-sm-2 control-label">Duration of break (seconds)</label>
-                    <div class="col-sm-1">
-                        <input class="form-control" id="relaxDurationSecs" placeholder="20">
-                    </div>
-                </div>
-                <div>
-                    <div class="col-sm-offset-2 col-sm-1">
-                        <button  class="btn btn-default" onclick="modifyTimes()">Apply</button> 
-                        <!-- TODO: modifyTimes -> ApplyModification -->
-                    </div>
-                </div>
-            </div>
-<div class="form-inline" role="form">
-  <div class="form-group">
-    <label class="sr-only" for="exampleInputEmail2">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
-  </div>
-  <div class="form-group">
-    <label class="sr-only" for="exampleInputPassword2">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
-  </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> Remember me
-    </label>
-  </div>
-  <button type="submit" class="btn btn-default">Sign in</button>
-</div>        </div>
+        </div>
+
         <div class="row" align="center">
             <p>Don't like playing sounds? <a href="indexNoSound.html">Click here</a> to get alerted through a popup!</p>
         </div>
