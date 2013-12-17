@@ -2,10 +2,32 @@
 
 <html>
     <head>
-        <title>Look Away!!</title>
+        <title>20-20-20 Rule Alert!!</title>
+        <script type="text/javascript" src="js/stopwatch.js"></script>
+        <link href="bootswatch/bootstrap.css" rel="stylesheet" media="screen"/>
+        <link href="main.css" rel="stylesheet" media="screen"/>
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
     </head>
 
     <body>
-    	<p>LOok Away!!</p>
-	</body>
+ 
+
+        <div id="watchText">  </div>
+        <div id="watchDisplay">00:00:00</div>
+        <div id="buttonDiv">
+            <button type="button" class="btn btn-default" id="resetButton" onclick="window.startAfresh()">Reset clock</button>
+        </div>
+        
+
+    </div>
+  
+        <script src="js/main.js"></script>
+        <script>
+        createWatch();
+        populateDefaultValues(true);
+        readFromCookie();
+        startAfresh();
+        </script>
+    </body>
 </html>

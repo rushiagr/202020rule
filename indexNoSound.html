@@ -4,41 +4,68 @@
     <head>
         <title>20-20-20 Rule</title>
         <script type="text/javascript" src="js/stopwatch.js"></script>
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+        <link href="bootswatch/bootstrap.css" rel="stylesheet" media="screen"/>
         <link href="main.css" rel="stylesheet" media="screen"/>
         <script src="js/jquery-1.10.2.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
-
     </head>
 
     <body>
     <div class="container">
-        <div id="watchText">Time to next break:</div>
-        <div id="watchDisplay">Watch's display (handeled by JavaScript)</div>
-        <button type="button" class="btn btn-primary" id="resetButton" onclick="window.startAfresh()">Reset clock</button>
+        <div class="bs-docs-section">
+            <div class="row" id="headContent">
+                <div class="col-lg-12">
+                    <div class="bs-example">
+                        <div class="jumbotron">
+                            <h1>20-20-20 Rule</h1>
+                            <h3>After every 20 minutes, you (the computer user) should take a break for at least 20 seconds and look at objects that are 20 feet away from you.</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div>
-            <label for="normalDurationMins" class="col-sm-2 control-label">Normal working period (minutes)</label>
-            <div class="col-sm-1">
-                <input class="form-control" id="normalDurationMins" placeholder="20">
+        <div id="watchText">  </div>
+        <div id="watchDisplay">00:00:00</div>
+        <div id="buttonDiv">
+            <button type="button" class="btn btn-default" id="resetButton" onclick="window.startAfresh()">Reset clock</button>
+        </div>
+        
+        <div id="modifyAccordionHeader"><h4>
+            <a data-toggle="collapse" data-target="#demo">
+                Modify duration and separation of breaks >><br>
+            </a></h4>
+        </div>
+
+        <div id="demo" class="collapse">
+            <div class="form-horizontal" role="form" >
+                <div class="form-group">
+                    <label for="normalDurationMins" class="col-sm-6 control-label">Normal working period (minutes)</label>
+                    <div class="col-sm-2">
+                        <input class="form-control" id="normalDurationMins" placeholder="20">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="relaxDurationSecs" class="col-sm-6 control-label">Duration of break (seconds)</label>
+                    <div class="col-sm-2">
+                        <input class="form-control" id="relaxDurationSecs" placeholder="20">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-6"></label>
+                    <div class="col-sm-5">
+                        <button  class="btn btn-default" onclick="modifyTimes()">Apply</button> 
+                        <!-- TODO: modifyTimes -> ApplyModification -->
+                    </div>
+                </div>
             </div>
         </div>
-        <div>
-            <label for="relaxDurationSecs" class="col-sm-2 control-label">Duration of break (seconds)</label>
-            <div class="col-sm-1">
-                <input class="form-control" id="relaxDurationSecs" placeholder="20">
-            </div>
+
+        <div class="row" align="center">
+            <h4>Go back to <a href="index.html">play sounds</a> instead of getting alerted via popup.</h4>
         </div>
-        <div>
-            <div class="col-sm-offset-2 col-sm-1">
-                <button  class="btn btn-default" onclick="modifyTimes()">Apply</button> 
-                <!-- TODO: modifyTimes -> ApplyModification -->
-            </div>
-        </div>
-        <br><br>
-        <p><a href="index.html">Go back</a> to get alerted via sound.</p>
+
     </div>
-
         <script src="js/main.js"></script>
         <script>
         createWatch();
@@ -46,6 +73,5 @@
         readFromCookie();
         startAfresh();
         </script>
-
     </body>
 </html>
