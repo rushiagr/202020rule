@@ -130,9 +130,9 @@ function executeBothTasksWithDelay() {
 
 function setDisplayForBool(boolVal) {
     if(boolVal==1) {
-        watchColour = "#008080";
+        watchColour = "#3498db";
     } else if(boolVal==0) {
-        watchColour = "#FF3366";
+        watchColour = "#FF6103";
     }
     document.getElementById('watchDisplay').style.color = watchColour;
     document.getElementById('watchText').innerHTML = window.watchTextValues[boolVal];

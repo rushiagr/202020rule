@@ -19,12 +19,13 @@
 
 <div class="bs-docs-section">
 
-        <div class="row">
+        <div class="row" id="headContent">
           <div class="col-lg-12">
-            <div class="page-header">
+            <!-- <div class="page-header"> -->
 <!--               <h1 id="container">Containers</h1>
               <h4> some random shit I cant take any more</h4>
- -->            </div>
+ -->            
+ <!-- </div> -->
             <div class="bs-example">
               <div class="jumbotron">
                 <h1>20-20-20 Rule</h1>
@@ -38,17 +39,17 @@
         </div>
 
 
-        <div id="watchText"></div>
+        <div id="watchText">  </div>
         <div id="watchDisplay">00:00:00</div>
         <div id="buttonDiv">
-            <button type="button" class="btn btn-primary" id="resetButton" onclick="window.startAfresh()">Reset clock</button>
+            <button type="button" class="btn btn-default" id="resetButton" onclick="window.startAfresh()">Reset clock</button>
         </div>
         
 
-        <div id="modifyAccordionHeader">
+        <div id="modifyAccordionHeader"><h4>
             <a data-toggle="collapse" data-target="#demo">
-                Change the time settings >><br>
-            </a>
+                Modify duration and separation of breaks >><br>
+            </a></h4>
         </div>
         <div id="demo" class="collapse">
             <div class="form-horizontal" role="form" >
@@ -75,7 +76,7 @@
         </div>
 
         <div class="row" align="center">
-            <p>Don't like playing sounds? <a href="indexNoSound.html">Click here</a> to get alerted through a popup!</p>
+            <h4>Don't like playing sounds? <a href="indexNoSound.html">Click here</a> to get alerted through a popup!</h4>
         </div>
     </div>
         <script src="js/main.js"></script>

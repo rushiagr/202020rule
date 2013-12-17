@@ -1,12 +1,12 @@
 #watchText {
 	text-align: center;
 	font-size: 2em;
-	color: #005555;
+	color: #7f8c8d;
 }
 
 #watchDisplay {
 	text-align: center;
-	font-size: 4em;
+	font-size: 5em;
 	font-weight: bolder;
 	color: #008080
 }
@@ -17,10 +17,13 @@
 }
 
 #resetButton {
-	font-size: 3em;
+	font-size: 1.3em;
 }
 
 #modifyAccordionHeader {
 	text-align: center;
 }
 
+#headContent {
+	padding-top: 40px;
+}
