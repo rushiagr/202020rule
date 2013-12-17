@@ -108,7 +108,7 @@ function resetWatch(timeMilliSec) {
 
 function executeBothTasksWithDelay() {
     if(window.isPopup) {
-        poppedUpWindow = window.open('popupPage.html', '', config='height=300,width=300');
+        poppedUpWindow = window.open('popupPage.html', '', config='height=110,width=300');
     } else {
         window.soundFile1.play();
     }
