@@ -11,6 +11,9 @@ function populateDefaultValues(isPopup) {
     window.isNormalPeriod = 1;  // used as boolean
     window.normalPeriodLengthMilliSec = 1000*60*20;    // 20 minutes
     window.relaxPeriodLengthMilliSec = 1000*20;          // 20 seconds
+    // Default Values
+    window.defaultNormalPeriodLengthMilliSec = 1000*60*20;    // 20 minutes
+    window.defaultRelaxPeriodLengthMilliSec = 1000*20;          // 20 seconds
 
     if(isPopup) {
         window.isPopup = true;
@@ -102,6 +105,19 @@ function loop() {
 function resetWatch(timeMilliSec) {
     window.watch.stop();
     window.watch.setElapsed(0, 0, timeMilliSec/1000);
+    window.watch.start();
+    document.getElementById('watchDisplay').innerHTML = window.watch.toString();
+}
+
+function resetToDefaultTimes() {
+    window.normalPeriodLengthMilliSec = window.defaultNormalPeriodLengthMilliSec;
+    window.relaxPeriodLengthMilliSec = window.defaultRelaxPeriodLengthMilliSec;
+
+    createCookie("normalPeriodCookieMilliSec", window.normalPeriodLengthMilliSec, 365*20);
+    createCookie("relaxPeriodCookieMilliSec", window.relaxPeriodLengthMilliSec, 365*20);
+    
+    window.watch.stop();
+    window.watch.setElapsed(0, 0, window.normalPeriodLengthMilliSec/1000);
     window.watch.start();
     document.getElementById('watchDisplay').innerHTML = window.watch.toString();
 }
