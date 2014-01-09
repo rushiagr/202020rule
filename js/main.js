@@ -171,6 +171,12 @@ function createCookie(cookieName, cookieValue, cookieExpiryDays) {
     document.cookie = cookieName+'='+cookieValue+expires+'; path=/';
 }
 
+function clickApply(event) {
+    if(event.keyCode == 13) {
+        modifyTimes();
+    }
+}
+
 function readCookie(cookieName) {
     //TODO(rushiagr): optimize this function
     var cookieNameEQ = cookieName+'=';
