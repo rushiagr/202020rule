@@ -125,7 +125,7 @@ function resetToDefaultTimes() {
 function executeBothTasksWithDelay() {
     if(window.isPopup) {
         createCookie('forPopupUse', window.relaxPeriodLengthMilliSec, 365*20)
-        var poppedUpWindow = window.open('popupPage.html', '', config='height=110,width=300');
+        var poppedUpWindow = window.open('popupPage.html', '', config='height=200,width=500');
 
         //poppedUpWindow.document.getElementById('testblah').innerHTML = "arerere";
     } else {
