@@ -64,6 +64,22 @@ function startAfresh() {
     //if (poppedUpWindow !== 'dummyValue') {poppedUpWindow.close();}
 }
 
+function resetToDefaultTimes() {
+    window.normalPeriodLengthMilliSec = window.defaultNormalPeriodLengthMilliSec;
+    window.relaxPeriodLengthMilliSec = window.defaultRelaxPeriodLengthMilliSec;
+
+    // TODO(rushiagr): the textboxes still show the previous value. Either remove these
+    // two lines or remove those
+    createCookie("normalPeriodCookieMilliSec", window.normalPeriodLengthMilliSec, 365*20);
+    createCookie("relaxPeriodCookieMilliSec", window.relaxPeriodLengthMilliSec, 365*20);
+    
+    window.startAfresh();
+//    window.watch.stop();
+//    window.watch.setElapsed(0, 0, window.normalPeriodLengthMilliSec/1000);
+//    window.watch.start();
+//    document.getElementById('watchDisplay').innerHTML = window.watch.toString();
+}
+
 
 function modifyTimes() {
     var normalCookieStr = document.getElementById('normalDurationMins').value;
@@ -105,19 +121,6 @@ function loop() {
 function resetWatch(timeMilliSec) {
     window.watch.stop();
     window.watch.setElapsed(0, 0, timeMilliSec/1000);
-    window.watch.start();
-    document.getElementById('watchDisplay').innerHTML = window.watch.toString();
-}
-
-function resetToDefaultTimes() {
-    window.normalPeriodLengthMilliSec = window.defaultNormalPeriodLengthMilliSec;
-    window.relaxPeriodLengthMilliSec = window.defaultRelaxPeriodLengthMilliSec;
-
-    createCookie("normalPeriodCookieMilliSec", window.normalPeriodLengthMilliSec, 365*20);
-    createCookie("relaxPeriodCookieMilliSec", window.relaxPeriodLengthMilliSec, 365*20);
-    
-    window.watch.stop();
-    window.watch.setElapsed(0, 0, window.normalPeriodLengthMilliSec/1000);
     window.watch.start();
     document.getElementById('watchDisplay').innerHTML = window.watch.toString();
 }
