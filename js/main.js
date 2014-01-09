@@ -124,7 +124,10 @@ function resetToDefaultTimes() {
 
 function executeBothTasksWithDelay() {
     if(window.isPopup) {
-        poppedUpWindow = window.open('popupPage.html', '', config='height=110,width=300');
+        createCookie('forPopupUse', window.relaxPeriodLengthMilliSec, 365*20)
+        var poppedUpWindow = window.open('popupPage.html', '', config='height=110,width=300');
+
+        //poppedUpWindow.document.getElementById('testblah').innerHTML = "arerere";
     } else {
         window.soundFile1.play();
     }
