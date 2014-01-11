@@ -1,3 +1,5 @@
+// NOTE: all the times are in milliseconds, unless otherwise specified in the variable name
+
 function createWatch() {
     window.watch = new Stopwatch(function(watch) { // Listener function
         document.getElementById('watchDisplay').innerHTML = watch.toString();
@@ -9,11 +11,11 @@ function populateDefaultValues(isPopup) {
     /* When normalPeriod is 1, the user can carry on his tasks on computer, but when it
      * is 0, we'll alert the user to not look at the screen and relax his/her eyes. */
     window.isNormalPeriod = 1;  // used as boolean
-    window.normalPeriodLengthMilliSec = 1000*60*20;    // 20 minutes
-    window.relaxPeriodLengthMilliSec = 1000*20;          // 20 seconds
+    window.normal = 1000*60*20;    // 20 minutes
+    window.relax = 1000*20;        // 20 seconds
     // Default Values
-    window.defaultNormalPeriodLengthMilliSec = 1000*60*20;    // 20 minutes
-    window.defaultRelaxPeriodLengthMilliSec = 1000*20;          // 20 seconds
+    window.defaultNormal = 1000*60*20;    // 20 minutes
+    window.defaultRelax = 1000*20;          // 20 seconds
 
     if(isPopup) {
         window.isPopup = true;
@@ -21,9 +23,6 @@ function populateDefaultValues(isPopup) {
     } else {
         window.isPopup = false;
     }
-    //poppedUpWindow = 'dummyValue';
-    //temporary values 
-    //window.normalPeriodLengthMilliSec = 1000*10; window.relaxPeriodLengthMilliSec = 1000*2;
 
     window.soundFile1 = new Audio("sounds/bing.ogg");
     window.soundFile2 = new Audio("sounds/bong.ogg");
@@ -36,17 +35,17 @@ function populateDefaultValues(isPopup) {
 
 
 function readFromCookie() {
-    var normalPeriodFromCookieMilliSec = readCookie("normalPeriodCookieMilliSec");
-    var relaxPeriodFromCookieMilliSec = readCookie("relaxPeriodCookieMilliSec");
+    var normalCookie = readCookie("normalCookie");
+    var relaxCookie = readCookie("relaxCookie");
 
-    if(normalPeriodFromCookieMilliSec) {
-        window.normalPeriodLengthMilliSec = normalPeriodFromCookieMilliSec;
-        document.getElementById('normalDurationMins').value = normalPeriodFromCookieMilliSec/1000/60;
+    if(normalCookie) {
+        window.normal = normalCookie;
+        document.getElementById('normalDurationMins').value = normalCookie/1000/60;
     }
 
-    if(relaxPeriodFromCookieMilliSec) {
-        window.relaxPeriodLengthMilliSec = relaxPeriodFromCookieMilliSec;
-        document.getElementById('relaxDurationSecs').value = relaxPeriodFromCookieMilliSec/1000;
+    if(relaxCookie) {
+        window.relax = relaxCookie;
+        document.getElementById('relaxDurationSecs').value = relaxCookie/1000;
     }
 }
 
@@ -54,30 +53,25 @@ function readFromCookie() {
 function startAfresh() {
     setDisplayForBool(window.isNormalPeriod);
     clearIntervalsAndTimeouts();
-    resetWatch(window.normalPeriodLengthMilliSec);
-    window.alreadySetInterval = setInterval('loop()', window.normalPeriodLengthMilliSec);
+    resetWatch(window.normal);
+    window.alreadySetInterval = setInterval('loop()', window.normal);
     if(window.isPopup) {
         if(poppedUpWindow !== 'dummyValue') {
             poppedUpWindow.close();
         }
     }
-    //if (poppedUpWindow !== 'dummyValue') {poppedUpWindow.close();}
 }
 
 function resetToDefaultTimes() {
-    window.normalPeriodLengthMilliSec = window.defaultNormalPeriodLengthMilliSec;
-    window.relaxPeriodLengthMilliSec = window.defaultRelaxPeriodLengthMilliSec;
+    window.normal = window.defaultNormal;
+    window.relax = window.defaultRelax;
 
     // TODO(rushiagr): the textboxes still show the previous value. Either remove these
     // two lines or remove those
-    createCookie("normalPeriodCookieMilliSec", window.normalPeriodLengthMilliSec, 365*20);
-    createCookie("relaxPeriodCookieMilliSec", window.relaxPeriodLengthMilliSec, 365*20);
+    createCookie("normalCookie", window.normal, 365*20);
+    createCookie("relaxCookie", window.relax, 365*20);
     
     window.startAfresh();
-//    window.watch.stop();
-//    window.watch.setElapsed(0, 0, window.normalPeriodLengthMilliSec/1000);
-//    window.watch.start();
-//    document.getElementById('watchDisplay').innerHTML = window.watch.toString();
 }
 
 
@@ -90,7 +84,7 @@ function modifyTimes() {
         return;
     }
 
-    // Rounding off to fall at the edge of a second
+    // Rounding off to the nearest second
     var normalMilli = Math.round(Number(normalCookieStr)*60*1000/1000)*1000;
     var relaxMilli = Math.round(Number(relaxCookieStr)*1000/1000)*1000;
 
@@ -99,11 +93,11 @@ function modifyTimes() {
         return;
     }
 
-    window.normalPeriodLengthMilliSec = normalMilli;
-    window.relaxPeriodLengthMilliSec = relaxMilli;
+    window.normal = normalMilli;
+    window.relax = relaxMilli;
 
-    createCookie("normalPeriodCookieMilliSec", window.normalPeriodLengthMilliSec, 365*20);
-    createCookie("relaxPeriodCookieMilliSec", window.relaxPeriodLengthMilliSec, 365*20);
+    createCookie("normalPeriodCookieMilliSec", window.normal, 365*20);
+    createCookie("relaxPeriodCookieMilliSec", window.relax, 365*20);
 
     window.startAfresh();
 }
@@ -114,7 +108,7 @@ function clearIntervalsAndTimeouts() {
 }
 
 function loop() {
-    resetWatch(window.normalPeriodLengthMilliSec);
+    resetWatch(window.normal);
     executeBothTasksWithDelay();
 }
 
@@ -127,27 +121,21 @@ function resetWatch(timeMilliSec) {
 
 function executeBothTasksWithDelay() {
     if(window.isPopup) {
-        createCookie('forPopupUse', window.relaxPeriodLengthMilliSec, 365*20)
         var poppedUpWindow = window.open('popupPage.html', '', config='height=200,width=500');
-
-        //poppedUpWindow.document.getElementById('testblah').innerHTML = "arerere";
     } else {
         window.soundFile1.play();
     }
-    resetWatch(window.relaxPeriodLengthMilliSec);
+    resetWatch(window.relax);
     setDisplayForBool(0);
-    //poppedUpWindow = window.open('popupPage.html', '', config='height=300,width=300');
     window.alreadySetTimeout = setTimeout(function(){
         if(window.isPopup) {
             poppedUpWindow.close();
         } else {
             window.soundFile2.play();
         }
-//        window.soundFile2.play();
-        resetWatch(window.normalPeriodLengthMilliSec - window.relaxPeriodLengthMilliSec);
+        resetWatch(window.normal - window.relax);
         setDisplayForBool(1);
-        //poppedUpWindow.close();
-    }, window.relaxPeriodLengthMilliSec);
+    }, window.relax);
 }
 
 function setDisplayForBool(boolVal) {
