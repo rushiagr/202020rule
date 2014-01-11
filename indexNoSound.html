@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
     <head>
         <title>20-20-20 Rule</title>
         <script type="text/javascript" src="js/stopwatch.js"></script>
@@ -11,6 +11,16 @@
     </head>
 
     <body>
+        <!-- Header for facebook like -->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
     <div class="container">
         <div class="bs-docs-section">
             <div class="row" id="headContent">
@@ -31,10 +41,12 @@
             <button type="button" class="btn btn-default" id="resetButton" onclick="window.startAfresh()">Reset clock</button>
         </div>
         
-        <div id="modifyAccordionHeader"><h4>
-            <a data-toggle="collapse" data-target="#demo">
-                Modify duration and separation of breaks >><br>
-            </a></h4>
+        <div id="modifyAccordionHeader">
+            <h4>
+                <a data-toggle="collapse" data-target="#demo">
+                    Modify duration and separation of breaks >><br>
+                </a>
+            </h4>
         </div>
 
         <div id="demo" class="collapse">
@@ -69,43 +81,94 @@
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1"> 
                 <div class="bs-example">
-                    <p  style="font-size:3em"><br>Simple ways to keep your eyes healthy</p><hr>
-                        
+                    <p style="font-size:3em">
+                        <br>Simple ways to keep your eyes healthy
+                    </p>
+                    <hr>
+                </div>
                 <div style="font-size:1.3em">
-                    <p id="informationText" >Regular use of computer <a href="http://en.wikipedia.org/wiki/Computer_vision_syndrome#Prevalence" target="_blank"> generally causes</a> dryness of eyes, blurring of vision and causes or increases <a href="http://en.wikipedia.org/wiki/Myopia#Signs_and_symptoms" target="_blank">myopia</a>. Our eyes are not designed for focussing at such a short distance constantly. You might need spectacles in near future, or if you already have one, the glasses are only going to get thicker. Follow these simple steps to keep your eyes healthy:</p>
+                    <p id="informationText" >
+                        Regular use of computer <a href="http://en.wikipedia.org/wiki/Computer_vision_syndrome#Prevalence" target="_blank"> generally causes</a> dryness of eyes, blurring of vision and causes or increases <a href="http://en.wikipedia.org/wiki/Myopia#Signs_and_symptoms" target="_blank">myopia</a>. Our eyes are not designed for focussing at such a short distance constantly. You might need spectacles in near future, or if you already have one, the glasses are only going to get thicker. Follow these simple steps to keep your eyes healthy:
+                    </p>
 
                     <ul class="list-unstyled">
-                        <li id="descriptionList">Take regular breaks from screen</li>
-                            <ul>
-                                <li>Follow the 20 20 20 rule.</li>
-                                <li>Remember that surfing over facebook, reading articles on web does not constitute a break. Forget eyes, even your brain does not consider these activities as 'break'. Try to take a break away from screen every hour -- take a walk around the workplace a bit, loosen/stretch your limbs. (<i>Concentration tip:</i> If you want to do both, surf webpages first, and then walk. Not the other way around )</li>
-                            </ul>
-                        <li id="descriptionList">Blink more</li>
-                            <ul>
-                                <li>You forget to blink when you look at screen, which make your eyes dry and take away from them their deserving 'breaks'. Try to make a conscious effort to blink more. Atleast during the break, force yourself to blink once a second, and within a day you'll develop the habit of blinking during the 20-second break.</li>
-                            </ul>
-                        <li id="descriptionList">Healthy computer screen habits</li>
-                            <ul>
-                                <li>Keep computer screen as far away as possible.</li>
-                                <li>As the digital world shifts towards devices with higher resolution and smaller pixels, the screen font size becomes lower and lower. You can always use control button followed by plus button ( <small><code>CTRL</code> +<code>+</code></small> ) to increase the font of the webpage you are viewing. Another advantage is that people unconsciously tend to move away fron screen for bigger font sizes.</li>
-                                <li>Use auto screen brightness if your device supports it. Else keep adjusting your screen brightness according to the time of the day and natural brightness around the screen.</li>
-                            </ul>
-                        <li id="descriptionList">Use accessories with your laptop</li>
-                            <ul>
-                                <li>Working directly on laptops for day job is not ideal. Have a docking station and monitor. Else, try to buy a keyboard and mouse, and keep the laptop farther from your eyes. Wireless keyboards give you an additional degree of freedom so you are free to make body movements which you otherwise couldn't have done -- lesser risk of neck and back pain.</li>
-                            </ul>
-                        <li id="descriptionList">Reading glasses</li>
-                            <ul>
-                                <li>Some studies reveal that wearing reading glasses while using computers help protect eyes from all the symptoms of <a href="http://en.wikipedia.org/wiki/Computer_vision_syndrome" target="_blank">computer vision syndrome</a>.</li>
-                            </ul>
+                        <li id="descriptionList">
+                            Take regular breaks from screen
+                        </li>
+                        <ul>
+                            <li>
+                                Follow the 20 20 20 rule.
+                            </li>
+                            <li>
+                                Remember that surfing over facebook, reading articles on web does not constitute a break. Forget eyes, even your brain does not consider these activities as 'break'. Try to take a break away from screen every hour -- take a walk around the workplace a bit, loosen/stretch your limbs. (<i>Concentration tip:</i> If you want to do both, surf webpages first, and then walk. Not the other way around )
+                            </li>
+                        </ul>
 
+                        <li id="descriptionList">
+                            Blink more
+                        </li>
+                        <ul>
+                            <li>
+                                You forget to blink when you look at screen, which make your eyes dry and take away from them their deserving 'breaks'. Try to make a conscious effort to blink more. Atleast during the break, force yourself to blink once a second, and within a day you'll develop the habit of blinking during the 20-second break.
+                            </li>
+                        </ul>
+
+                        <li id="descriptionList">
+                            Healthy computer screen habits
+                        </li>
+                        <ul>
+                            <li>
+                                Keep computer screen as far away as possible.
+                            </li>
+                            <li>
+                                As the digital world shifts towards devices with higher resolution and smaller pixels, the screen font size becomes lower and lower. You can always use control button followed by plus button ( <small><code>CTRL</code> +<code>+</code></small> ) to increase the font of the webpage you are viewing. Another advantage is that people unconsciously tend to move away fron screen for bigger font sizes.
+                            </li>
+                            <li>
+                                Use auto screen brightness if your device supports it. Else keep adjusting your screen brightness according to the time of the day and natural brightness around the screen.
+                            </li>
+                        </ul>
+                        <li id="descriptionList">
+                            Use accessories with your laptop
+                        </li>
+                        <ul>
+                            <li>
+                                Working directly on laptops for day job is not ideal. Have a docking station and monitor. Else, try to buy a keyboard and mouse, and keep the laptop farther from your eyes. Wireless keyboards give you an additional degree of freedom so you are free to make body movements which you otherwise couldn't have done -- lesser risk of neck and back pain.
+                            </li>
+                        </ul>
+
+                        <li id="descriptionList">
+                            Reading glasses
+                        </li>
+                        <ul>
+                            <li>
+                                Some studies reveal that wearing reading glasses while using computers help protect eyes from all the symptoms of <a href="http://en.wikipedia.org/wiki/Computer_vision_syndrome" target="_blank">computer vision syndrome</a>.
+                            </li>
+                        </ul>
                     </ul>
                 </div>
-                </div>
+                <br><br>
+                <ul class="list-inline" align="center">
+                    <li>
+                        <!-- FB like button -->
+                        <div class="fb-like" data-href="http://www.rushiagr.com/202020rule/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div><div style="width: 55px"></div>
+                    </li>
+                    <li>
+                        <!-- 'Tweet' button -->
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.rushiagr.com/202020rule" data-text="Keep your eyes healthy by following 20-20-20 Rule." data-via="reeshi_india">Tweet</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                    </li>
+                </ul>
+
+                <!-- My details and copyright and feedback link -->
+                <ul class="list-inline" align="right" style="font-size: 1.2em">
+                    Copyright <a href="https://github.com/rushiagr">Rushi Agrawal</a> | 
+                    <a href="http://www.rushiagr.com">View blog</a> | 
+                    <a href="https://rushiagr.wufoo.com/forms/202020-rule-feedback/" target="_blank">Feedback (wufoo form).</a>
+                </ul>
+                <br>
 
             </div>
         </div>
-
     </div>
 
     <!-- google analytics -->
@@ -117,17 +180,14 @@
 
       ga('create', 'UA-47025183-1', 'rushiagr.com');
       ga('send', 'pageview');
-
     </script>
 
-    
-
-        <script src="js/main.js"></script>
-        <script>
+    <script src="js/main.js"></script>
+    <script>
         createWatch();
         populateDefaultValues(true);
         readFromCookie();
         startAfresh();
-        </script>
+    </script>
     </body>
 </html>
