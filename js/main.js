@@ -35,6 +35,7 @@ function populateDefaultValues(isPopup) {
 
 
 function readFromCookie() {
+    // Read 'normal' and 'relax' values from cookie and put in HTML page's textbox
     var normalCookie = readCookie("normalCookie");
     var relaxCookie = readCookie("relaxCookie");
 
@@ -51,6 +52,8 @@ function readFromCookie() {
 
 
 function startAfresh() {
+    // Restart the clock again. Starts from the time specified in variable window.normal
+    // Closes the popup window if it is open
     setDisplayForBool(window.isNormalPeriod);
     clearIntervalsAndTimeouts();
     resetWatch(window.normal);
@@ -63,6 +66,7 @@ function startAfresh() {
 }
 
 function resetToDefaultTimes() {
+    // Resets the clock to the default time of 20-min/20-second thing, and restarts it
     window.normal = window.defaultNormal;
     window.relax = window.defaultRelax;
 
@@ -76,6 +80,7 @@ function resetToDefaultTimes() {
 
 
 function modifyTimes() {
+    // Take the values from the two textboxes and apply the changes
     var normalCookieStr = document.getElementById('normalDurationMins').value;
     var relaxCookieStr = document.getElementById('relaxDurationSecs').value;
 
@@ -127,6 +132,7 @@ function executeBothTasksWithDelay() {
     }
     resetWatch(window.relax);
     setDisplayForBool(0);
+
     window.alreadySetTimeout = setTimeout(function(){
         if(window.isPopup) {
             poppedUpWindow.close();
@@ -139,6 +145,8 @@ function executeBothTasksWithDelay() {
 }
 
 function setDisplayForBool(boolVal) {
+    // Changes the display colour, and text depending on which period is going on now
+    // 0 stands for relax/break period, 1 stands for normal period
     if(boolVal==1) {
         watchColour = "#3498db";
     } else if(boolVal==0) {
