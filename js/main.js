@@ -101,10 +101,13 @@ function modifyTimes() {
     window.normal = normalMilli;
     window.relax = relaxMilli;
 
-    createCookie("normalPeriodCookieMilliSec", window.normal, 365*20);
     createCookie("relaxPeriodCookieMilliSec", window.relax, 365*20);
+	
+	if(window.normal!=readCookie("normalPeriodCookieMilliSec"))	{
+		createCookie("normalPeriodCookieMilliSec", window.normal, 365*20);
+		window.startAfresh();
+	}
 
-    window.startAfresh();
 }
 
 function clearIntervalsAndTimeouts() {
