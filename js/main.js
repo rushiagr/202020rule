@@ -142,7 +142,7 @@ function executeBothTasksWithDelay() {
         } else {
             window.soundFile2.play();
         }
-        resetWatch(window.normal - window.relax);
+        resetWatch(window.normal);
         setDisplayForBool(1);
     }, window.relax);
 }
